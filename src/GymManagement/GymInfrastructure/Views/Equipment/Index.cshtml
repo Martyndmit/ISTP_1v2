@@ -1,0 +1,47 @@
+﻿@model IEnumerable<GymDomain.Entities.Equipment>
+
+@{
+    ViewData["Title"] = "Список обладнання";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Додати обладнання</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Назва обладнання</th>
+            <th>Бренд</th>
+            <th>Зал</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Brand</td>
+                    <td>@(item.Gym?.Location ?? "Зал не вказано")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.EquipmentId" class="btn btn-info">Деталі</a>
+                        <a asp-action="Edit" asp-route-id="@item.EquipmentId" class="btn btn-warning">Редагувати</a>
+                        <a asp-action="Delete" asp-route-id="@item.EquipmentId" class="btn btn-danger">Видалити</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Обладнання відсутнє.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
